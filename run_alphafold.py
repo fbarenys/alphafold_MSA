@@ -40,20 +40,20 @@ def get_model_haiku_params(model_name: str, data_dir: str) -> hk.Params:
 
 logging.set_verbosity(logging.INFO)
 
-flags.DEFINE_string('fasta_msa_path', None, 'Paths to folder where MSAs in FASTA format are located')
+flags.DEFINE_string('aln_msa_path', None, 'Paths to folder where MSAs in Clustal format are located')
 
 flags.DEFINE_string('output_dir', None, 'Path to a directory that will '
                     'store the results.') 
 
 
-def predict_structure(fasta_msa_path,fasta_name,output_dir):
+def predict_structure(aln_msa_path,aln_name,output_dir):
 
   ##################################################################################
   ############################## MSA PROCESSING ####################################
   ##################################################################################
 
   # get file and change multiple sequence aligmnet format from aln to stockholm 
-  aln_file= fasta_msa_path + "/"+fasta_name
+  aln_file= aln_msa_path + "/"+aln_name
   stock_file = SeqIO.parse(aln_file, "clustal")
   stock_file_path=aln_file.replace(".aln",".stockholm")
  
@@ -172,14 +172,14 @@ def predict_structure(fasta_msa_path,fasta_name,output_dir):
   #################################Save model outputs##################################
   # Create folder for prediction
   try:
-    os.mkdir(output_dir+f'/{fasta_name.replace(".aln","")}')
+    os.mkdir(output_dir+f'/{aln_name.replace(".aln","")}')
   except:
     pass
 
 
   # Write out the pdb prediction
 
-  with open(output_dir+f'/{fasta_name.replace(".aln","")}/protein.pdb', 'w') as f:
+  with open(output_dir+f'/{aln_name.replace(".aln","")}/protein.pdb', 'w') as f:
     f.write(relaxed_pdb)
     f.close()
 
@@ -194,7 +194,7 @@ def predict_structure(fasta_msa_path,fasta_name,output_dir):
   distogram["aminoacids"]=  msa_input.sequences[0]
 
 
-  with open(output_dir+f'/{fasta_name.replace(".aln","")}/distograms.pkl', 'wb') as f:
+  with open(output_dir+f'/{aln_name.replace(".aln","")}/distograms.pkl', 'wb') as f:
     pickle.dump(distogram,f)
     f.close()
 
@@ -204,21 +204,21 @@ def predict_structure(fasta_msa_path,fasta_name,output_dir):
 
 def main(argv):
 
-  fun = lambda x : os.path.isfile(os.path.join(FLAGS.fasta_msa_path,x))
-  msas = filter(fun, os.listdir(FLAGS.fasta_msa_path))
+  fun = lambda x : os.path.isfile(os.path.join(FLAGS.aln_msa_path,x))
+  msas = filter(fun, os.listdir(FLAGS.aln_msa_path))
   msas= [x for x in msas if x.endswith(".aln")]
   # Predict structure for each of the sequences.
   for msa  in msas:
     print("Predicting structure of: "+msa)
     predict_structure(
-        fasta_msa_path=FLAGS.fasta_msa_path,
-        fasta_name= msa ,
+        aln_msa_path=FLAGS.aln_msa_path,
+        aln_name= msa ,
         output_dir= FLAGS.output_dir)
 
 
 if __name__ == '__main__':
   flags.mark_flags_as_required([
-      'fasta_msa_path',
+      'aln_msa_path',
       'output_dir',
   ])
 
