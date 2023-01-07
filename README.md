@@ -53,6 +53,10 @@ alphafold run .py −−aln msa path path −−output dir path
 ```
 
 
-### Results
+### Outputs
+
+The program returns a folder in the **--output_path** with the name of the MSA that contains two files:
+- protein.pdb (3d structure of the predicted protien)
+- disotgram.pkl, a file that contains the distogram of distances between pairs of amino acids.
 
 
