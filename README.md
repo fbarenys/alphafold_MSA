@@ -43,5 +43,16 @@ And then the .tar file has to be decompressed. The final model_paramet folder sh
 
 ### Execution guide
 
+In order to execute the program on the bash Terminal there have been established 2 variables:
+- **aln msa path**: This variable refers to the folder where the MSAs are located. (Have in mind that the app will predict iteratively all the MSA’s given in the folder path.)
+- **output dir**:This variable refers to the direction where the output of the app will be saved.
+To run the app this command has to be run:
+
+```{bash}
+alphafold run .py −−aln msa path path −−output dir path
+```
+
+
+### Results
 
 
