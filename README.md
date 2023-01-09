@@ -49,7 +49,7 @@ In order to execute the program on the bash Terminal there have been established
 To run the app this command has to be run:
 
 ```{bash}
-alphafold run .py −−aln msa path path −−output dir path
+alphafold run .py −−aln_msa_path path −−output_dir path
 ```
 
 
