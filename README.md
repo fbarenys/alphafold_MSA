@@ -4,9 +4,9 @@ This implementation of the Alphafold 2 algorithm was made for my Bachelor thesis
 
 ### Installation guide
 
-This installation guide was extracted from https://github.com/kalininalab/alphafold_non_docker, and modified to adapt it to out purpose.
+This installation guide was extracted from https://github.com/kalininalab/alphafold_non_docker, and modified to adapt it to our purpose.
 
-First Miniconda should be installed as new en- vironment to run the program has to be created (recommended).
+First Miniconda should be installed and a new environment has to be created to run the program(recommended).
 
 ```{bash}
 conda create −−name alphafold python==3.8
@@ -18,7 +18,6 @@ Then the environment has to be activated:
 conda activate alphafold
 ```
 Now the dependencies will be installed:
-
 
 ```{bash}
 conda install −y −c conda−forge openmm==7.5.1 cudnn==8.2.1.32 cudatoolkit==11.0.3 pdbfixer==1.7
